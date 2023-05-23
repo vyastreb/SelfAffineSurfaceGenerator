@@ -1,4 +1,4 @@
-# Generator of a random self-affine field
+# Generator of a periodic random self-affine field
 
 ## Information
 
