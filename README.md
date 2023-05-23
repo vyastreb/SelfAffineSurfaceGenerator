@@ -1,14 +1,18 @@
-# Generator of self-affine roughness
-## Vladislav A. Yastrebov
-## MINES Paris, Centre des Materiaux, CNRS
-## 2015-2023
-## Licence: BSD 3-Clause 
+# Generator of a random self-affine field
+
+## Information
+
++ Author: Vladislav A. Yastrebov
++ Affiliation: MINES Paris, Centre des Materiaux, CNRS
++ Date: 2015-2023
++ Licence: BSD 3-Clause 
 
 ## Description
 
 It is a C++ implementation of the method proposed in
-Y.Z. Hu and K. Tonder, "Simulation of 3-D random rough surface by 2-D digital filter in fourier space", Int. J. Mach. Tools Manufact. 32:83-90 (1992) DOI: https://doi.org/10.1016/0890-6955(92)90064-N
-(see doc/*, I also put our papers where this method was used to generate rough surfaces for contact analysis between rough surfaces)
+Y.Z. Hu and K. Tonder, "Simulation of 3-D random rough surface by 2-D digital filter in fourier space", Int. J. Mach. Tools Manufact. 32:83-90 (1992): [DOI](https://doi.org/10.1016/0890-6955%2892%2990064-N)
+One could also check our paper where this method was used to generate rough surfaces for contact analysis between rough surfaces: V.A. Yastrebov, G. Anciaux, J.F. Molinari.
+"The role of the roughness spectral breadth in elastic contact of rough surfaces", Journal of the Mechanics and Physics of Solids, 107:469-493 (2017): [DOI](https://doi.org/10.1016/j.jmps.2017.07.016), [arXiv](https://arxiv.org/abs/1704.05650)
 
 ## Input: it requires 8 arguments: 
 
@@ -24,9 +28,9 @@ Y.Z. Hu and K. Tonder, "Simulation of 3-D random rough surface by 2-D digital fi
 
 ## Short help:
 
-+ to compile src/*
++ to compile `src/*`<br>
 `$ make`
-+ the executable SURFACE_GENERATOR is put in bin/
-to execute run 
-`$./SURFACE_GENERATOR` 
++ the executable SURFACE_GENERATOR is put in `bin/`
+to execute run<br> 
+`$./SURFACE_GENERATOR` <br>
 if you do not provide arguments, it will print the arguments it needs.
