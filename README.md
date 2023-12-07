@@ -34,3 +34,7 @@ One could also check our paper where this method was used to generate rough surf
 to execute run<br> 
 `$./SURFACE_GENERATOR` <br>
 if you do not provide arguments, it will print the arguments it needs.
+
+## Python implementation
+
+Python implementation is available under CC0 license, you can find it in `python/RandomField.py`.
