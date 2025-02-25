@@ -47,8 +47,10 @@ def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k
         exit(1)
     k = fftshift(k)
 
-    # Define the power spectrum for k values in the range [k_low, k_high]
-    power_spectrum = np.where((k >= k_low) & (k <= k_high), (k/k_low)**power, 0)
+    # First create mask, then compute power spectrum only for valid k values
+    mask = (k >= k_low) & (k <= k_high)
+    power_spectrum = np.zeros_like(k)
+    power_spectrum[mask] = (k[mask]/k_low)**power
 
     # Make sure the mean power is finite
     power_spectrum[np.isinf(power_spectrum)] = 0
@@ -64,30 +66,3 @@ def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k
     return grf
 
 
-######################
-# Test 2D version
-######################
-
-N0 = 1024           # Size of the random field
-k_low = 4 / N0      # Lower cutoff of the power spectrum
-k_high = 256 / N0   # Upper cutoff of the power spectrum
-Hurst = 0.6         # Hurst exponent
-dim = 2             # Dimension of the random field
-seed = 124          # Seed for the random number generator
-np.random.seed(seed)
-
-# Generate the random field
-random_field = periodic_gaussian_random_field(dim = dim, N = N0, Hurst = Hurst, k_low = k_low, k_high = k_high)
-
-# Normalize
-random_field /= np.std(random_field)
-
-# Plot
-plt.rcParams['figure.figsize'] = [5,5]
-fig,ax = plt.subplots()
-ax.axis('off')
-im = plt.imshow(random_field, cmap='RdYlBu_r', interpolation='bicubic')
-plt.colorbar(im, orientation='horizontal', shrink=0.82, pad=0.02)
-plt.tight_layout()
-plt.show()
-fig.savefig("RandomField.png", dpi=300)

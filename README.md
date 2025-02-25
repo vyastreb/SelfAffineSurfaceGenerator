@@ -37,4 +37,15 @@ if you do not provide arguments, it will print the arguments it needs.
 
 ## Python implementation
 
-Python implementation is available under CC0 license, you can find it in `python/RandomField.py`.
+Python implementation is available under CC0 license, you can find it in `python/RandomField.py` and a test in `python/test.py`.
+
+Usage:
+```python
+import numpy as np
+import RandomField as rf
+
+N0 = 1024
+random_field = rf.periodic_gaussian_random_field(dim = 2, N = N0, Hurst = 0.5, k_low = 4 / N0, k_high = 128 / N0)
+```
+
+
