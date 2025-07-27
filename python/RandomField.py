@@ -35,7 +35,7 @@ def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k
         Upper bound of the wavenumber range (k_high < 0.5, which represents Nyquist frequency).
 
     Returns:
-    grf : ndarray
+    z : ndarray
         The generated random field.
     """
     if k_low < 0 or k_high < 0 or k_low > k_high:
@@ -83,10 +83,10 @@ def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k
 
     # Transform back to real space
     if dim == 2:
-            grf = np.real(ifft2(ifftshift(grf_fourier)))
+            z = np.real(ifft2(ifftshift(grf_fourier)))
     else:
-        grf = np.real(ifftn(ifftshift(grf_fourier)))
-    return grf
+        z = np.real(ifftn(ifftshift(grf_fourier)))
+    return z
 
 
 def ideal_periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k_high = 0.3, verbose = False):
