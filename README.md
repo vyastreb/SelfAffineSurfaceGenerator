@@ -4,15 +4,17 @@
 
 + Author: Vladislav A. Yastrebov
 + Affiliation: MINES Paris, Centre des Materiaux, CNRS
-+ Date: 2015-2023
++ Date: 2015-2025
 + Licence: BSD 3-Clause 
 
 ## Description
 
-It is a C++ implementation of the method proposed in
+It is a C++ and Python implementation of the method proposed in
 Y.Z. Hu and K. Tonder, "Simulation of 3-D random rough surface by 2-D digital filter in fourier space", Int. J. Mach. Tools Manufact. 32:83-90 (1992): [DOI](https://doi.org/10.1016/0890-6955%2892%2990064-N)
 One could also check our paper where this method was used to generate rough surfaces for contact analysis between rough surfaces: V.A. Yastrebov, G. Anciaux, J.F. Molinari.
 "The role of the roughness spectral breadth in elastic contact of rough surfaces", Journal of the Mechanics and Physics of Solids, 107:469-493 (2017): [DOI](https://doi.org/10.1016/j.jmps.2017.07.016), [arXiv](https://arxiv.org/abs/1704.05650)
+
+In Python version there is also a random surface generation with an idealized spectrum, i.e. no randomness in the PSD only phase is random.
 
 ## Input: it requires 8 arguments: 
 
@@ -44,8 +46,10 @@ Usage:
 import numpy as np
 import RandomField as rf
 
-N0 = 1024
-random_field = rf.periodic_gaussian_random_field(dim = 2, N = N0, Hurst = 0.5, k_low = 4 / N0, k_high = 128 / N0)
+N = 1024
+random_field = rf.periodic_gaussian_random_field(dim = 2, N = N, Hurst = 0.5, k_low = 4 / N, k_high = 128 / N)
+
+ideal_random_field = rf.ideal_periodic_gaussian_random_field(dim = 2, N = N, Hurst = 0.5, k_low = 4 / N, k_high = 128 / N)
 ```
 
 
