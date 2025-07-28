@@ -8,7 +8,8 @@ The method is described in the following paper:
 
 Method 2: generation with a perfect self-affine spectrum and a random phase.
     
-Author: Vladislav Yastrebov, MINES Paris - PSL, Centre des matériaux, CNRS UMR 7633, BP 87, 91003 Evry, France (with help of GPT4 and Copilot)
+Author: Vladislav Yastrebov, CNRS,  Mines Paris - PSL, Centre des matériaux, Versailles, France 
+Help: GPT4, Copilot, Claude Sonnet 4.0
 Date: Dec 2023 - Jul 2025
 License: CC0
 """
@@ -17,7 +18,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy.fft import fft2, ifft2, fftfreq, fftshift, ifftshift, fftn, ifftn
 
-def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k_high = 0.3, verbose = False):
+def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k_high = 0.3, plateau = False, verbose = False):
     """
     Generate a periodic Gaussian random field with a self-affine spectrum.
     Randomness is introduced by a random noise generated in the real space and then filtered in Fourier space.
@@ -33,6 +34,10 @@ def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k
         Lower bound of the wavenumber range (k_low > 0).
     k_high : float
         Upper bound of the wavenumber range (k_high < 0.5, which represents Nyquist frequency).
+    plateau : bool
+        If True, the power spectrum is flat up to k_low, otherwise all wavenumbers below k_low are set to zero.
+    verbose : bool
+        If True, print the parameters used for generating the random field.
 
     Returns:
     z : ndarray
@@ -74,6 +79,8 @@ def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k
     mask = (k >= k_low) & (k <= k_high)
     sqrt_power_spectrum = np.zeros_like(k)
     sqrt_power_spectrum[mask] = (k[mask]/k_low)**power
+    if plateau:
+        sqrt_power_spectrum[k < k_low] = 1.0
 
     # Make sure the mean power is finite
     sqrt_power_spectrum[np.isinf(sqrt_power_spectrum)] = 0
@@ -89,7 +96,7 @@ def periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k
     return z
 
 
-def ideal_periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k_high = 0.3, verbose = False):
+def ideal_periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0.03, k_high = 0.3, plateau = False, verbose = False):
     """
     Generate a periodic Gaussian random field with a self-affine spectrum.
     Every "power" in the spectrum follows the self-affine scaling law:
@@ -107,6 +114,10 @@ def ideal_periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0
         Lower bound of the wavenumber range (k_low > 0).
     k_high : float
         Upper bound of the wavenumber range (k_high < 0.5, which represents Nyquist frequency).
+    plateau : bool
+        If True, the power spectrum is flat up to k_low, otherwise all wavenumbers below k_low are set to zero.
+    verbose : bool
+        If True, print the parameters used for generating the random field.
 
     Returns:
     z : ndarray
@@ -144,6 +155,8 @@ def ideal_periodic_gaussian_random_field(dim = 2, N = 256, Hurst = .5, k_low = 0
     # Avoid division by zero; k==0 is excluded by mask anyway
     sqrt_power_spectrum[mask] = (k[mask] / k_low) ** power
     sqrt_power_spectrum[k == 0] = 0.0
+    if plateau:
+        sqrt_power_spectrum[k < k_low] = 1.0
 
     # Get random phases that obey Hermitian symmetry automatically
     # (from FFT of a real white-noise field)
