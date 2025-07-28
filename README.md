@@ -108,6 +108,16 @@ ideal_periodic_gaussian_random_field(dim, N, Hurst, k_low, k_high, plateau=False
 + `verbose` (bool): If True, print the parameters used for generating the random field.
 
 
+## Examples
+
+Random self-affine 2D field with a "noisy" spectrum with a plateau
+
+![Random self-affine 2D field with a "noisy" spectrum](python/RandomField_2D_filtering.png)
+
+Random self-affine 2D field with an "ideal" spectrum with a plateau
+
+![Random self-affine 2D field with an "ideal" spectrum](python/RandomField_2D_ideal.png)
+
 ## License
 
 + C++ repository: BSD 3‑Clause.
